@@ -486,3 +486,7 @@ a,button { -webkit-tap-highlight-color: #e7c78033; }
 /* Three.js eagle layer */
 .eagle3d{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:5}
 .eagle3d-on .flight>img,.eagle3d-on .rig-spark{visibility:hidden}
+
+.coin3d{position:absolute;inset:0;width:100%;height:100%;display:block}
+.logo .mark{position:relative}
+.coin3d-on .coin-spin{visibility:hidden}

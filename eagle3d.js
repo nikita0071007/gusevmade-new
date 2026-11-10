@@ -41,7 +41,7 @@
 
     const loader = new T.TextureLoader();
     const tex = src => new Promise((res, rej) => loader.load(src, t => { t.colorSpace = T.SRGBColorSpace; t.anisotropy = 4; res(t); }, undefined, rej));
-    const [tl, tr, tb, tc] = await Promise.all([L.left, L.right, L.body, L.coin].map(l => tex(l.src)));
+    const [tl, tr, tb] = await Promise.all([L.left, L.right, L.body].map(l => tex(l.src)));
 
     // world coordinates: stage square centred at the origin, y up, size 1
     const wx = x => x - .5, wy = y => .5 - y;
@@ -83,12 +83,20 @@
     const body = plane(L.body, tb, 3);
     body.position.set(wx(L.body.x + L.body.w / 2), wy(L.body.y + L.body.w * L.body.ar / 2), L.body.z);
 
-    // coin hangs from its upper rim: geometry shifted so the hinge is the origin
+    // coin hangs from its upper rim: a real 3D coin on a pivot at its top edge
     const cw = L.coin.w, ch = L.coin.w * L.coin.ar;
-    const cg = new T.PlaneGeometry(cw, ch); cg.translate(0, -ch * (.5 - L.coin.hy), 0);
-    const coin = new T.Mesh(cg, mat(tc)); coin.renderOrder = 2;
+    const lib = await import('./assets/coin-lib.js');
+    const env = lib.makeEnv(T, renderer);
+    const face = await lib.loadFace(T, L.coin.src);
+    const coin = new T.Group();
+    const coinMesh = lib.makeCoin(T, face, env, cw / 2, .09);
+    coinMesh.position.y = -ch * (.5 - L.coin.hy);
+    coin.add(coinMesh);
     coin.position.set(wx(L.coin.x + cw / 2), wy(L.coin.y + ch * L.coin.hy), L.coin.z);
     inner.add(coin);
+    const key = new T.DirectionalLight(0xfff0cf, 1.4); key.position.set(-1, 1.2, 2); scene.add(key);
+    scene.add(new T.AmbientLight(0xffe2a8, .4));
+    renderer.toneMapping = T.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.1;
 
     // glint on the coin
     const gc = document.createElement('canvas'); gc.width = gc.height = 128;
@@ -161,6 +169,7 @@
         px = a[1]; py = a[2]; sc = a[3]; rz = -a[4] * Math.PI / 180; opacity = a[5];
       }
       mats.forEach(m => { m.opacity = opacity; });
+      coin.visible = opacity > .02;
 
       cxm = lerp(cxm, tx, Math.min(1, dt * 4)); cym = lerp(cym, ty, Math.min(1, dt * 4));
       flight.position.set(wx(PIVOT.x) + px, wy(PIVOT.y) + py + Math.sin(ph) * .004 * amp, 0);
@@ -188,7 +197,8 @@
 
       body.position.y = wy(L.body.y + L.body.w * L.body.ar / 2) + Math.sin(ph + .6) * .006 * amp;
       coin.rotation.z = Math.sin(ph - .5) * .07 * amp;
-      coin.rotation.y = Math.sin(ph * .5) * .22 + cxm * .15;
+      coin.rotation.y = Math.sin(ph * .5) * .75 + cxm * .3;
+      coin.rotation.x = Math.sin(ph * .5 + 1) * .08;
       spark.material.opacity = .4 + .6 * Math.max(0, Math.sin(clock * 1.7));
       spark.scale.setScalar(.7 + .6 * Math.max(0, Math.sin(clock * 1.7)));
       renderer.render(scene, camera);
