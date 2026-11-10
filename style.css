@@ -482,3 +482,7 @@ a,button { -webkit-tap-highlight-color: #e7c78033; }
 .review-soon p,.review-card p{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 14px}
 .review-card strong{color:var(--gold);font-weight:500;font-size:14px}
 @media(min-width:701px) and (max-width:1250px){.header nav{gap:10px}.header nav a{font-size:12px}}
+
+/* Three.js eagle layer */
+.eagle3d{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:5}
+.eagle3d-on .flight>img,.eagle3d-on .rig-spark{visibility:hidden}
