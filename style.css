@@ -490,3 +490,15 @@ a,button { -webkit-tap-highlight-color: #e7c78033; }
 .coin3d{position:absolute;inset:0;width:100%;height:100%;display:block}
 .logo .mark{position:relative}
 .coin3d-on .coin-spin{visibility:hidden}
+/* portfolio shots */
+.project-art .shots{display:flex;gap:8px;margin-top:14px;position:relative}
+.project-art .shots img{border-radius:8px;box-shadow:0 6px 18px #0008;display:block;height:auto}
+.shots-phones img{width:calc((100% - 16px)/3)}
+.shots-wide img{width:100%}
+.honey-feature{display:grid;grid-template-columns:1fr 1.6fr;gap:28px;margin-top:32px;padding:28px;border:1px solid var(--line);border-radius:14px;align-items:center}
+.hf-tag{font-size:12px;color:var(--gold);letter-spacing:2px}
+.hf-text .project-link{display:block;margin-top:12px}
+.hf-shots{display:grid;grid-template-columns:1.3fr 1fr .5fr;gap:12px;align-items:end}
+.hf-shots figure{margin:0}.hf-shots img{width:100%;height:auto;border-radius:10px;display:block}
+.hf-shots figcaption{font-size:12px;color:var(--muted);margin-top:6px}
+@media(max-width:800px){.honey-feature{grid-template-columns:1fr;padding:18px}.hf-shots{grid-template-columns:1fr 1fr}.hf-phone{grid-column:span 1}}
