@@ -503,3 +503,6 @@ a,button { -webkit-tap-highlight-color: #e7c78033; }
 .hf-shots figcaption{font-size:12px;color:var(--muted);margin-top:6px}
 @media(max-width:800px){.honey-feature{grid-template-columns:1fr;padding:18px}.hf-shots{grid-template-columns:1fr 1fr}.hf-phone{grid-column:span 1}}
 .consent-note{font-size:12px;color:var(--muted);margin:14px 0 0}.consent-note a{color:var(--gold)}
+.project-art.ariadna{min-height:320px}
+.ariadna-face{position:absolute;right:0;bottom:0;height:100%;width:auto;max-width:62%;object-fit:cover;object-position:center top;-webkit-mask-image:linear-gradient(to left,#000 55%,transparent);mask-image:linear-gradient(to left,#000 55%,transparent);opacity:.95}
+.project-art.ariadna strong{max-width:50%;position:relative}
