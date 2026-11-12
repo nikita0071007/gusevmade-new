@@ -502,3 +502,4 @@ a,button { -webkit-tap-highlight-color: #e7c78033; }
 .hf-shots figure{margin:0}.hf-shots img{width:100%;height:auto;border-radius:10px;display:block}
 .hf-shots figcaption{font-size:12px;color:var(--muted);margin-top:6px}
 @media(max-width:800px){.honey-feature{grid-template-columns:1fr;padding:18px}.hf-shots{grid-template-columns:1fr 1fr}.hf-phone{grid-column:span 1}}
+.consent-note{font-size:12px;color:var(--muted);margin:14px 0 0}.consent-note a{color:var(--gold)}
